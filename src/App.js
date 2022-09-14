@@ -1,25 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from "react";
 
-function App() {
+export default function App() {
+  const [temp, SetTemp] = useState(10);
+  const [bgColor, SetbgColor] = useState("cold");
+  const increaseTemp = () => {
+    if (temp === 30) return;
+    const newTemp = temp + 1;
+    if (newTemp >= 15) {
+      SetbgColor("hot");
+    }
+    SetTemp(newTemp);
+  };
+  const decreaseTemp = () => {
+    if (temp === 0) return;
+    const newTemp = temp - 1;
+    if (temp <= 15) {
+      SetbgColor("cold");
+    }
+    SetTemp(newTemp);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <div className="App">
+        <div>
+          <button className={`container ${bgColor}`}>{temp} °C</button>
+        </div>
+
+        <button
+          className="btn btn-success btn-circle btn-sm"
+          onClick={increaseTemp}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          +
+        </button>
+        <button
+          className=" btn btn-danger btn-circle btn-sm"
+          onClick={decreaseTemp}
+        >
+          -
+        </button>
+      </div>
+    </>
   );
 }
-
-export default App;
